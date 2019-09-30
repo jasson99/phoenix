@@ -1,5 +1,5 @@
 <template>
-  <oc-application-menu name="coreMenu" v-model="sidebarIsVisible" @close="sidebarIsVisible = false">
+  <oc-application-menu name="coreMenu" v-model="sidebarIsVisible" :inert="!sidebarIsVisible" @close="sidebarIsVisible = false" ref="sidebar">
     <oc-sidebar-nav-item v-for="(n, nid) in nav" :key="nid" :icon="n.iconMaterial" :target="n.route ? n.route.path : null" @click="openItem(n.url)">{{ translateMenu(n) }}</oc-sidebar-nav-item>
 
     <oc-sidebar-nav-item icon="account_circle" target="/account" :isolate="true">
