@@ -2220,7 +2220,7 @@ trigger:
 ---
 
 kind: pipeline
-name: acceptance-webUILogin-saucelabs
+name: acceptance-IE11
 
 platform:
   os: linux
@@ -2297,14 +2297,15 @@ steps:
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix:8300/oidc-callback.html
-  - yarn run acceptance-tests-sauce
+  - yarn run acceptance-tests-drone
   environment:
     TEST_CONTEXT: webUILogin
-    TEST_TAGS: not @skip
+    TEST_TAGS: "@smokeTest and not @skip"
     SAUCE_USERNAME:
       from_secret: sauce_username
     SAUCE_ACCESS_KEY:
       from_secret: sauce_access_key
+    BROWSER_NAME: internet explorer
 
 services:
 - name: phoenix
