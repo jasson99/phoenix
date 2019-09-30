@@ -26,6 +26,11 @@ export default {
   watch: {
     $route () {
       this.toggleSidebar(false)
+    },
+    sidebarIsVisible (val) {
+      if (val) {
+        this.focusFirstLink()
+      }
     }
   },
   computed: {
@@ -73,6 +78,16 @@ export default {
         const win = window.open(url, '_blank')
         win.focus()
       }
+    },
+    focusFirstLink () {
+      /*
+      * Delay for two reasons:
+      * - for screen readers Virtual buffer
+      * - to outsmart uikit's focus management
+      */
+      setTimeout(() => {
+        this.$refs.sidebar.$el.querySelector('a:first-of-type').focus()
+      }, 500)
     }
   }
 }
