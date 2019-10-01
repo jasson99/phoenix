@@ -68,9 +68,9 @@ module.exports = {
         port: SELENIUM_PORT,
       },
       screenshots: {
-        enabled: true,
+        enabled: !SAUCE_USERNAME,
         path: 'tests/reports/screenshots',
-        on_failure: true
+        on_failure: !SAUCE_USERNAME
       },
       username: SAUCE_USERNAME,
       access_key: SAUCE_ACCESS_KEY,
