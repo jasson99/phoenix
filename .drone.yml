@@ -2305,6 +2305,7 @@ steps:
     SAUCE_ACCESS_KEY:
       from_secret: sauce_access_key
     BROWSER_NAME: internet explorer
+    SELENIUM_PORT: 4445
 
 services:
 - name: phoenix
