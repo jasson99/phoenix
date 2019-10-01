@@ -1,3 +1,5 @@
+const navigationHelper = require('../helpers/navigationHelper')
+
 module.exports = {
   url: function () {
     return this.api.launchUrl + '/#/files/favorites/'
@@ -8,12 +10,9 @@ module.exports = {
      * @returns {*}
      */
     navigateAndWaitTillLoaded: function () {
-      this.navigate()
-      this.api.refresh()
-      return this
-        .page.FilesPageElement.filesList()
-        .waitForElementPresent({ selector: '@filesListProgressBar', abortOnFailure: false }) // don't fail if we are too late
-        .waitForElementNotPresent('@filesListProgressBar')
+      return navigationHelper.navigateAndWaitTillLoaded(
+        this.url(), this.page.FilesPageElement.filesList().elements.filesListProgressBar.selector
+      )
     }
   }
 }
