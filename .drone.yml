@@ -2343,7 +2343,7 @@ services:
   pull: if-not-exists
   image: henrrich/docker-sauce-connect:latest
   commands:
-    - /usr/local/sauce-connect/bin/sc
+    - /usr/local/sauce-connect/bin/sc --doctor
   environment:
     SAUCE_USERNAME:
       from_secret: sauce_username
@@ -2486,7 +2486,7 @@ services:
     pull: if-not-exists
     image: henrrich/docker-sauce-connect:latest
     commands:
-      - /usr/local/sauce-connect/bin/sc
+      - /usr/local/sauce-connect/bin/sc --doctor
     environment:
       SAUCE_USERNAME:
         from_secret: sauce_username
@@ -2629,7 +2629,7 @@ services:
     pull: if-not-exists
     image: henrrich/docker-sauce-connect:latest
     commands:
-      - /usr/local/sauce-connect/bin/sc
+      - /usr/local/sauce-connect/bin/sc --doctor
     environment:
       SAUCE_USERNAME:
         from_secret: sauce_username
@@ -2772,7 +2772,7 @@ services:
     pull: if-not-exists
     image: henrrich/docker-sauce-connect:latest
     commands:
-      - /usr/local/sauce-connect/bin/sc
+      - /usr/local/sauce-connect/bin/sc --doctor
     environment:
       SAUCE_USERNAME:
         from_secret: sauce_username
@@ -2915,7 +2915,7 @@ services:
     pull: if-not-exists
     image: henrrich/docker-sauce-connect:latest
     commands:
-      - /usr/local/sauce-connect/bin/sc
+      - /usr/local/sauce-connect/bin/sc --doctor
     environment:
       SAUCE_USERNAME:
         from_secret: sauce_username
