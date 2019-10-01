@@ -1,6 +1,6 @@
 module.exports = {
   url: function () {
-    return this.api.launchUrl + '/#/files/favorites/'
+    return this.api.launchUrl + '/index.html#/files/favorites/'
   },
   commands: {
     /**

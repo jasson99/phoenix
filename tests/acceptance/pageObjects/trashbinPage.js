@@ -1,6 +1,6 @@
 module.exports = {
   url: function () {
-    return this.api.launchUrl + '/#/files/trash-bin/'
+    return this.api.launchUrl + '/index.html#/files/trash-bin/'
   },
   commands: {
     /**

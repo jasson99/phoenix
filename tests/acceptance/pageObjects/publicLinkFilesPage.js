@@ -5,7 +5,7 @@ module.exports = {
      * @returns {*}
      */
     navigateAndWaitTillLoaded: function (token) {
-      this.navigate(this.api.launchUrl + '/#/files/public-files/' + token)
+      this.navigate(this.api.launchUrl + '/index.html#/files/public-files/' + token)
       return this
         .page.FilesPageElement.filesList()
         .waitForElementPresent({ selector: '@filesListProgressBar', abortOnFailure: false }) // don't fail if we are too late
