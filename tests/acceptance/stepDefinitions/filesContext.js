@@ -121,6 +121,12 @@ When('the user deletes the following elements using the webUI', function (table)
   return client.page.filesPage()
 })
 
+Then('it should not be possible to delete file {string} using the webUI', function (resource) {
+  return client.page.FilesPageElement.filesList().isActionDisabled(resource, 'delete', (isDisabled) => {
+    client.assert.strictEqual(isDisabled, true, `Delete action must not be enabled for "${resource}"`)
+  })
+})
+
 Given('the following files have been deleted by user {string}', function (user, table) {
   for (const line of table.rows()) {
     webdav.delete(user, line[0])
@@ -130,6 +136,12 @@ Given('the following files have been deleted by user {string}', function (user, 
 
 When('the user uploads file {string} using the webUI', function (element) {
   return client.page.filesPage().uploadFile(element)
+})
+
+Then('it should not be possible to create files using the webUI', function () {
+  return client.page.filesPage().canCreateFiles((isDisabled) => {
+    client.assert.strictEqual(isDisabled, true, 'Create action must not be enabled')
+  })
 })
 
 When('the user renames file/folder {string} to {string} using the webUI', function (fromName, toName) {

@@ -74,6 +74,20 @@ module.exports = {
         .waitForElementNotVisible('@fileUploadProgress')
         .click('@newFileMenuButton')
     },
+    /**
+     * Returns whether files or folders can be created in the current page.
+     *
+     * @param {Function} callback callback with result
+     */
+    canCreateFiles: function (callback) {
+      return this
+        .waitForElementVisible('@newFileMenuButtonAnyState')
+        .getAttribute('@newFileMenuButtonAnyState', 'disabled', (result) => {
+          console.log(result)
+          const isDisabled = result.value === 'true'
+          callback(isDisabled)
+        })
+    },
     showHiddenFiles: function () {
       return this
         .waitForElementVisible('@filterListButton')
@@ -161,6 +175,9 @@ module.exports = {
     }
   },
   elements: {
+    newFileMenuButtonAnyState: {
+      selector: '#new-file-menu-btn'
+    },
     newFileMenuButton: {
       selector: '#new-file-menu-btn:enabled'
     },

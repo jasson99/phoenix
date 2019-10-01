@@ -10,6 +10,10 @@ module.exports = {
         .page.FilesPageElement.filesList()
         .waitForElementPresent({ selector: '@filesListProgressBar', abortOnFailure: false }) // don't fail if we are too late
         .waitForElementNotPresent('@filesListProgressBar')
+    },
+    navigateAndWaitForPasswordPage: function (token) {
+      this.navigate(this.api.launchUrl + '/#/files/public-files/' + token)
+      return this.page.publicLinkPasswordPage().waitForElementPresent('@passwordInput')
     }
   }
 }
