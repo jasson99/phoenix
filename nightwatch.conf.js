@@ -81,7 +81,9 @@ module.exports = {
         chromeOptions: SAUCE_USERNAME ? undefined : {
           args: ['disable-gpu', 'disable-dev-shm-usage'],
           w3c: false
-        }
+        },
+        seleniumVersion: '3.141.59',
+        iedriverVersion: '3.14.0'
       }
     }
   }
