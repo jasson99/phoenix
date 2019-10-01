@@ -11,7 +11,7 @@ module.exports = {
      * @returns {*}
      */
     navigateAndWaitTillLoaded: function (folder = '') {
-      this.navigate(this.api.launchUrl + '/index.html#/files/list/' + folder)
+      this.navigate(this.api.launchUrl + '/#/files/list/' + folder)
       return this
         .page.FilesPageElement.filesList()
         .waitForElementPresent({ selector: '@filesListProgressBar', abortOnFailure: false }) // don't fail if we are too late

@@ -1,6 +1,6 @@
 module.exports = {
   url: function () {
-    return this.api.launchUrl + '/index.html#/files/favorites/'
+    return this.api.launchUrl + '/#/files/favorites/'
   },
   commands: {
     /**
@@ -9,6 +9,7 @@ module.exports = {
      */
     navigateAndWaitTillLoaded: function () {
       this.navigate()
+      this.api.refresh()
       return this
         .page.FilesPageElement.filesList()
         .waitForElementPresent({ selector: '@filesListProgressBar', abortOnFailure: false }) // don't fail if we are too late
