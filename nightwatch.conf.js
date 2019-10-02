@@ -78,10 +78,6 @@ module.exports = {
         acceptSslCerts: true,
         username: SAUCE_USERNAME,
         access_key: SAUCE_ACCESS_KEY,
-        'sauce:options': {
-          seleniumVersion: '3.141.59',
-          iedriverVersion: '3.14.0'
-        },
         chromeOptions: SAUCE_USERNAME ? undefined : {
           args: ['disable-gpu', 'disable-dev-shm-usage'],
           w3c: false
