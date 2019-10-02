@@ -2299,7 +2299,7 @@ steps:
   - curl http://phoenix/oidc-callback.html
   - yarn run acceptance-tests-drone
   environment:
-    TEST_TAGS: "@smokeTest and not @skip"
+    TEST_TAGS: "@smokeTest and not @skip and not @skipOnIE"
     SAUCE_USERNAME:
       from_secret: sauce_username
     SAUCE_ACCESS_KEY:
