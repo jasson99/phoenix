@@ -72,8 +72,12 @@ module.exports = {
         path: 'tests/reports/screenshots',
         on_failure: !SAUCE_USERNAME
       },
-      username: SAUCE_USERNAME,
-      access_key: SAUCE_ACCESS_KEY,
+      'sauce:options': {
+        username: SAUCE_USERNAME,
+        access_key: SAUCE_ACCESS_KEY,
+        seleniumVersion: '3.141.59',
+        iedriverVersion: '3.14.0'
+      },
       desiredCapabilities: {
         browserName: BROWSER_NAME || 'chrome',
         javascriptEnabled: true,
@@ -81,9 +85,7 @@ module.exports = {
         chromeOptions: SAUCE_USERNAME ? undefined : {
           args: ['disable-gpu', 'disable-dev-shm-usage'],
           w3c: false
-        },
-        seleniumVersion: '3.141.59',
-        iedriverVersion: '3.14.0'
+        }
       }
     }
   }
