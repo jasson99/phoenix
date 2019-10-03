@@ -87,7 +87,7 @@ const assertCollaboratorslistContains = function (type, name, role) {
     .then(shares => {
       const cleanedShares = []
       for (var i = 0; i < shares.length; i++) {
-        cleanedShares.push(shares[i].replace('\n', ' '))
+        cleanedShares.push(shares[i].replace(/\n/g, ' '))
         // depending on the browser there are extra \n or not, so get rid of them all
       }
       let expectedString = name + ' ' + role
