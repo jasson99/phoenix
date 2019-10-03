@@ -83,7 +83,8 @@ module.exports = {
           args: ['disable-gpu', 'disable-dev-shm-usage'],
           w3c: false
         },
-        tunnelIdentifier: SAUCE_USERNAME ? DRONE_BUILD_NUMBER : undefined
+        tunnelIdentifier: SAUCE_USERNAME ? DRONE_BUILD_NUMBER : undefined,
+        idleTimeout: 180
       }
     }
   }
