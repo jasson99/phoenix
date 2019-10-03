@@ -81,7 +81,8 @@ module.exports = {
         chromeOptions: SAUCE_USERNAME ? undefined : {
           args: ['disable-gpu', 'disable-dev-shm-usage'],
           w3c: false
-        }
+        },
+        tunnelIdentifier: SAUCE_USERNAME ? undefined : process.env.DRONE_BUILD_NUMBER
       }
     }
   }

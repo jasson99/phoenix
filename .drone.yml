@@ -2342,7 +2342,7 @@ services:
   pull: if-not-exists
   image: henrrich/docker-sauce-connect:latest
   commands:
-    - /usr/local/sauce-connect/bin/sc
+    - /usr/local/sauce-connect/bin/sc -i ${DRONE_BUILD_NUMBER}
   environment:
     SAUCE_USERNAME:
       from_secret: sauce_username
