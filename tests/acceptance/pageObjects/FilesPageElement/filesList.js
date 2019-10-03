@@ -301,6 +301,36 @@ module.exports = {
         .waitForElementNotPresent('@loadingIndicator')
         .waitForElementPresent(this.getFileRowSelectorByFileName(element))
     },
+    assertActionDisabled: function (action, fileName) {
+      const btnSelectorHighResolution = '(' + this.getFileRowSelectorByFileName(fileName) +
+        this.elements[action + 'ButtonInFileRow'].selector + ')[1]'
+      const btnSelectorLowResolution = '(' + this.getFileRowSelectorByFileName(fileName) +
+        this.elements[action + 'ButtonInFileRow'].selector + ')[last()]'
+      const fileActionsBtnSelector = this.getFileRowSelectorByFileName(fileName) +
+        this.elements.fileActionsButtonInFileRow.selector
+
+      return this
+        .useXpath()
+        .moveToElement(this.getFileRowSelectorByFileName(fileName), 0, 0)
+        .isVisible(fileActionsBtnSelector, (result) => {
+          if (result.value === true) {
+            this.click(fileActionsBtnSelector)
+              .waitForElementVisible(btnSelectorLowResolution)
+              .getAttribute(btnSelectorLowResolution, 'disabled', result => {
+                this.assert.strictEqual(
+                  result.value, 'true',
+                  `expected property disabled of ${btnSelectorLowResolution} to be 'true' but found ${result.value}`)
+              })
+          } else {
+            this.waitForElementVisible(btnSelectorHighResolution)
+              .getAttribute(btnSelectorHighResolution, 'disabled', result => {
+                this.assert.strictEqual(
+                  result.value, 'true',
+                  `expected property disabled of ${btnSelectorHighResolution} to be 'true' but found ${result.value}`)
+              })
+          }
+        })
+    },
     /**
      *
      * @returns {Promise.<[]>} Array of files/folders element

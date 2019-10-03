@@ -501,3 +501,9 @@ Then('the clipboard content should match permalink of resource {string}', async 
 Then('the thumbnail should be visible in the app-sidebar', function () {
   return client.page.FilesPageElement.appSideBar().isThumbnailVisible()
 })
+
+Then('it should not be possible to delete file/folder {string} using the webUI', function (resource) {
+  return client.page.FilesPageElement
+    .filesList()
+    .assertActionDisabled('delete', resource)
+})
