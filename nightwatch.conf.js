@@ -12,6 +12,7 @@ const FILES_FOR_UPLOAD = process.env.FILES_FOR_UPLOAD || require('path').join(__
 const SAUCE_USERNAME = process.env.SAUCE_USERNAME
 const SAUCE_ACCESS_KEY = process.env.SAUCE_ACCESS_KEY
 const BROWSER_NAME = process.env.BROWSER_NAME
+const DRONE_BUILD_NUMBER = process.env.DRONE_BUILD_NUMBER
 
 module.exports = {
   page_objects_path: './tests/acceptance/pageObjects',
@@ -82,7 +83,7 @@ module.exports = {
           args: ['disable-gpu', 'disable-dev-shm-usage'],
           w3c: false
         },
-        tunnelIdentifier: SAUCE_USERNAME ? undefined : process.env.DRONE_BUILD_NUMBER
+        tunnelIdentifier: SAUCE_USERNAME ? DRONE_BUILD_NUMBER : undefined
       }
     }
   }
