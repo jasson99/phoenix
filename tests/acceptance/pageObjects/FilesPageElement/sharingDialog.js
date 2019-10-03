@@ -149,38 +149,43 @@ module.exports = {
     },
     /**
      *
+     * @param {string} permission
+     * @param {bool} enable
+     */
+    changeSinglePermission: async function (permission, enable) {
+      const permissionXpath = this.getPermissionSwitchXpath(permission)
+      await this.api.waitForElementVisible({ selector: permissionXpath, locateStrategy: 'xpath', timeout: 100, abortOnFailure: false }, function (result) {
+        if (result.value === true) {
+          this.getAttribute(permissionXpath, 'data-state', (state) => {
+            if ((state.value === 'on' && !enable) || (state.value === 'off' && enable)) {
+              // need to click
+              this.useXpath()
+                .click(permissionXpath)
+            }
+          })
+        }
+        // check if the requiredPermission is not visible
+        if (result.value === false) {
+          throw new Error(`permission ${permission} is not visible `)
+        }
+      })
+    },
+    /**
+     *
      * @param {string} collaborator
      * @param {string} requiredPermissions
      */
     changeCustomPermissionsTo: async function (collaborator, requiredPermissions) {
       const requiredPermissionArray = this.getArrayFromPermissionString(requiredPermissions)
 
-      let permission = ''
-      this.expandInformationSelector(collaborator)
-
+      await this.expandInformationSelector(collaborator)
       for (let i = 0; i < collaboratorPermissionArray.length; i++) {
-        permission = collaboratorPermissionArray[i]
-        const permissionXpath = this.getPermissionSwitchXpath(permission)
-        // Check if the xpath of permission is visible
-        await this.api.waitForElementVisible({ selector: permissionXpath, timeout: 100, abortOnFailure: false }, function (result) {
-          if (result.value === true) {
-            this
-              .getAttribute(permissionXpath, 'data-state', (state) => {
-                if ((state.value === 'on' && !requiredPermissionArray.includes(permission)) ||
-                  (state.value === 'off' && requiredPermissionArray.includes(permission))) {
-                  // need to click
-                  this.useXpath()
-                    .click(permissionXpath)
-                }
-              })
-          }
-          // check if the requiredPermission is not visible
-          if (result.value === false && requiredPermissionArray.includes(permission)) {
-            throw new Error(`permission ${permission} is not visible `)
-          }
-        })
+        await this.changeSinglePermission(
+          collaboratorPermissionArray[i],
+          requiredPermissionArray.includes(collaboratorPermissionArray[i])
+        )
       }
-      return this.saveCollaboratorPermission()
+      await this.saveCollaboratorPermission()
     },
     /**
      * asserts that the permission is set to "off" or not displayed at all
@@ -232,25 +237,10 @@ module.exports = {
      */
     disableAllCustomPermissions: async function (collaborator) {
       this.expandInformationSelector(collaborator)
-
       for (let i = 0; i < collaboratorPermissionArray.length; i++) {
-        const permission = collaboratorPermissionArray[i]
-        const permissionXpath = this.getPermissionSwitchXpath(permission)
-        // Check if the xpath of permission is visible
-        await this.api.waitForElementVisible({ selector: permissionXpath, timeout: 100, abortOnFailure: false }, function (result) {
-          if (result.value === true) {
-            this
-              .getAttribute(permissionXpath, 'data-state', (state) => {
-                if (state.value === 'on') {
-                  // need to click
-                  this.useXpath()
-                    .click(permissionXpath)
-                }
-              })
-          }
-        })
+        await this.changeSinglePermission(collaboratorPermissionArray[i], false)
       }
-      return this.saveCollaboratorPermission()
+      await this.saveCollaboratorPermission()
     },
     /**
      *
