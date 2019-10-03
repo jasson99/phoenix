@@ -11,6 +11,9 @@
  */
 exports.command = function setValueBySingleKeys (selector, inputValue) {
   const chars = inputValue.split('')
+  if (chars.length === 0) {
+    return this.setValue(selector, '')
+  }
   return Promise.all(chars.map((char) => {
     return this.setValue(selector, char)
   })
