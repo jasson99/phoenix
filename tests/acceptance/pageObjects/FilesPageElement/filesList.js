@@ -129,7 +129,7 @@ module.exports = {
         .waitForElementVisible('@renameFileConfirmationBtn')
         .waitForAnimationToFinish()
         .clearValue('@renameFileInputField')
-        .setValue('@renameFileInputField', toName)
+        .setValueBySingleKeys('@renameFileInputField', toName)
         .click('@renameFileConfirmationBtn')
         .waitForOutstandingAjaxCalls()
         .useCss()
