@@ -72,24 +72,9 @@ def yarnlint():
 			'base': '/var/www/owncloud',
 			'path': config['app']
 		},
-		'steps': [
-			{
-				'name': 'npm-install',
-				'image': 'owncloudci/php',
-				'pull': 'always',
-				'commands': [
-					'yarn install'
-				]
-			},
-			{
-				'name': 'lint-test',
-				'image': 'owncloudci/php',
-				'pull': 'always',
-				'commands': [
-					'yarn run lint'
-				]
-			}
-		],
+		'steps':
+			installNPM() +
+			lintTest(),
 		'depends_on': [],
 		'trigger': {
 			'ref': [
@@ -388,6 +373,7 @@ def acceptance():
 									'path': 'testrunner/apps/%s' % config['app']
 								},
 								'steps':
+									installNPM() +
 									installCore(server, db, params['useBundledApp']) +
 									installTestrunner(phpVersion, params['useBundledApp']) +
 								([
@@ -664,6 +650,30 @@ def installCore(version, db, useBundledApp):
 		stepDefinition['settings']['exclude'] = 'apps/%s' % config['app']
 
 	return [stepDefinition]
+
+def installNPM():
+	return [
+		{
+			'name': 'npm-install',
+			'image': 'owncloudci/php',
+			'pull': 'always',
+			'commands': [
+				'yarn install'
+			]
+		}
+	]
+
+def lintTest():
+	return [
+			{
+				'name': 'lint-test',
+				'image': 'owncloudci/php',
+				'pull': 'always',
+				'commands': [
+					'yarn run lint'
+				]
+			}
+	]
 
 def installTestrunner(phpVersion, useBundledApp):
 	return [{
