@@ -84,7 +84,8 @@ module.exports = {
           w3c: false
         },
         tunnelIdentifier: SAUCE_USERNAME ? DRONE_BUILD_NUMBER : undefined,
-        idleTimeout: 180
+        idleTimeout: 180,
+        screenResolution: SAUCE_USERNAME ? '1280x1024' : undefined
       }
     }
   }
