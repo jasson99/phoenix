@@ -501,3 +501,8 @@ Then('the clipboard content should match permalink of resource {string}', async 
 Then('the thumbnail should be visible in the app-sidebar', function () {
   return client.page.FilesPageElement.appSideBar().isThumbnailVisible()
 })
+
+When('the user uploads overwriting file {string} using the webUI', function (file) {
+  return client.page.filesPage().uploadFile(file)
+    .then(() => client.page.filesPage().confirmFileOverwrite())
+})

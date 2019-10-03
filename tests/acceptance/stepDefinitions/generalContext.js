@@ -39,12 +39,38 @@ Then('as {string} the content of {string} should be the same as the local {strin
     .then(body => assertContentOFLocalFileIs(fullPathOflocalFile, body))
 })
 
+Then('as {string} the content of {string} should not be the same as the local {string}', function (userId, remoteFile, localFile) {
+  const fullPathOflocalFile = client.globals.filesForUpload + localFile
+  return webdavHelper
+    .download(userId, remoteFile)
+    .then(body => assertContentOFLocalFileIsNot(fullPathOflocalFile, body))
+})
+
 const assertContentOFLocalFileIs = function (fullPathOflocalFile, expectedContent) {
   const actualContent = fs.readFileSync(fullPathOflocalFile, { encoding: 'utf-8' })
   return client.assert.strictEqual(
     actualContent, expectedContent, 'asserting content of local file "' + fullPathOflocalFile + '"'
   )
 }
+
+const assertRemoteFileSameAsSkeletonFile = async function (userId, remoteFile, skeletonFile) {
+  const skeleton = await webdavHelper.getSkeletonFile(skeletonFile)
+  const remote = await webdavHelper.download(userId, remoteFile)
+  return client.assert.strictEqual(
+    skeleton, remote, `Failed asserting remote file ${remoteFile} is same as skeleton file ${skeletonFile} for user${userId}`
+  )
+}
+
+const assertContentOFLocalFileIsNot = function (fullPathOflocalFile, expectedContent) {
+  const actualContent = fs.readFileSync(fullPathOflocalFile, { encoding: 'utf-8' })
+  return client.assert.notEqual(
+    actualContent, expectedContent, 'asserting content of local file "' + fullPathOflocalFile + '"'
+  )
+}
+
+Then('as {string} the content of {string} should be the same as the original {string}', function (user, remoteFile, skeletonFile) {
+  return assertRemoteFileSameAsSkeletonFile(user, remoteFile, skeletonFile)
+})
 
 Before(function () {
   createdFiles = []

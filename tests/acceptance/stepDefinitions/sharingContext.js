@@ -397,3 +397,7 @@ Then('user {string} should have a share with these details:', function (user, ex
 Given('the user {string} has created a new public link for resource {string}', function (user, resource) {
   return shareFileFolder(resource, user, '', SHARE_TYPES.public_link)
 })
+
+When('the user unshares file/folder {string} using the webUI', function (folder) {
+  return client.page.FilesPageElement.filesList().deleteFile(folder)
+})

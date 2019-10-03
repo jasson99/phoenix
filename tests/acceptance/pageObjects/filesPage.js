@@ -158,6 +158,11 @@ module.exports = {
       return this
         .waitForElementVisible('@permalinkCopyButton')
         .click('@permalinkCopyButton')
+    },
+    confirmFileOverwrite: function () {
+      return this
+        .waitForElementVisible('@fileOverwriteConfirm')
+        .click('@fileOverwriteConfirm')
     }
   },
   elements: {
@@ -235,6 +240,10 @@ module.exports = {
       selector: '//div[@class="sidebar-container"]',
       locateStrategy: 'xpath'
     },
+    fileOverwriteConfirm: {
+      selector: '#files-overwrite-confirm'
+    },
+
     /**
      * path from inside the side-bar
      */
