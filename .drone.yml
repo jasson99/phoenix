@@ -14,13 +14,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php
+  image: owncloudci/php:7.1
   commands:
   - yarn install
 
 - name: lint-test
   pull: always
-  image: owncloudci/php
+  image: owncloudci/php:7.1
   commands:
   - yarn run lint
 
@@ -50,13 +50,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php
+  image: owncloudci/php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php
+  image: owncloudci/php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -81,7 +81,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php
+  image: owncloudci/php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -103,14 +103,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php
+  image: owncloudci/php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php
+  image: owncloudci/php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -170,7 +170,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php
+  image: owncloudci/php:7.1
   command:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -179,7 +179,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php
+  image: owncloudci/php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e

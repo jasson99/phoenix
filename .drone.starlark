@@ -233,7 +233,7 @@ def javascript():
 		[
 			{
 				'name': 'js-tests',
-				'image': 'owncloudci/php:7.0',
+				'image': 'owncloudci/php:7.1',
 				'pull': 'always',
 				'environment': params['extraEnvironment'],
 				'commands': params['extraCommandsBeforeTestRun'] + [
@@ -462,7 +462,7 @@ def browserService(name):
 def phoenixService():
 	return [{
 		'name': 'phoenix',
-		'image': 'owncloudci/php',
+		'image': 'owncloudci/php:7.1',
 		'pull': 'always',
 		'environment': {
 			'APACHE_WEBROOT': '/var/www/owncloud/phoenix/dist',
@@ -476,7 +476,7 @@ def phoenixService():
 def owncloudService():
 	return [{
 		'name': 'owncloud',
-		'image': 'owncloudci/php',
+		'image': 'owncloudci/php:7.1',
 		'pull': 'always',
 		'environment': {
 			'APACHE_WEBROOT': '/var/www/owncloud/',
@@ -558,7 +558,7 @@ def installNPM():
 	return [
 		{
 			'name': 'npm-install',
-			'image': 'owncloudci/php',
+			'image': 'owncloudci/php:7.1',
 			'pull': 'always',
 			'commands': [
 				'yarn install'
@@ -570,7 +570,7 @@ def lintTest():
 	return [
 			{
 				'name': 'lint-test',
-				'image': 'owncloudci/php',
+				'image': 'owncloudci/php:7.1',
 				'pull': 'always',
 				'commands': [
 					'yarn run lint'
@@ -582,7 +582,7 @@ def buildPhoenix():
 	return [
 			{
 				'name': 'build-phoenix',
-				'image': 'owncloudci/php',
+				'image': 'owncloudci/php:7.1',
 				'pull': 'always',
 				'commands': [
 					'yarn dist',
@@ -620,7 +620,7 @@ def installApp(phpVersion):
 def setupServerAndApp(logLevel):
 	return [{
 		'name': 'setup-server-%s' % config['app'],
-		'image': 'owncloudci/php',
+		'image': 'owncloudci/php:7.1',
 		'pull': 'always',
 		'commands': [
 			'cd /var/www/owncloud/',
@@ -639,7 +639,7 @@ def setupServerAndApp(logLevel):
 def fixPermissions():
 	return [{
 		'name': 'fix-permissions',
-		'image': 'owncloudci/php',
+		'image': 'owncloudci/php:7.1',
 		'pull': 'always',
 		'commands': [
 			'cd /var/www/owncloud/',
@@ -661,7 +661,7 @@ def owncloudLog():
 def runWebuiAcceptanceTests(suite):
 	return [{
 		'name': 'webui-acceptance-tests',
-		'image': 'owncloudci/php',
+		'image': 'owncloudci/php:7.1',
 		'pull': 'always',
 		'environment': {
 			'TEST_CONTEXT': suite,
