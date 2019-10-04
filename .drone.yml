@@ -75,7 +75,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloud/ubuntu:18.04
+  image: owncloud/ubuntu:16.04
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
 
@@ -96,7 +96,7 @@ steps:
 
 - name: owncloud-log
   pull: always
-  image: owncloud/ubuntu:18.04
+  image: owncloud/ubuntu:16.04
   detach: true
   commands:
   - tail -f /var/www/owncloud/data/owncloud.log
@@ -141,7 +141,7 @@ steps:
 
 - name: build-github-comment
   pull: always
-  image: owncloud/ubuntu:18.04
+  image: owncloud/ubuntu:16.04
   detach: true
   commands:
   - cd /var/www/owncloud/phoenix/tests/reports/screenshots/

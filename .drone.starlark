@@ -595,7 +595,7 @@ def cloneOauth():
 	return [
 			{
 				'name': 'clone-oauth',
-				'image': 'owncloud/ubuntu:18.04',
+				'image': 'owncloud/ubuntu:16.04',
 				'pull': 'always',
 				'commands': [
 					'git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2'
@@ -650,7 +650,7 @@ def fixPermissions():
 def owncloudLog():
 	return [{
 		'name': 'owncloud-log',
-		'image': 'owncloud/ubuntu:18.04',
+		'image': 'owncloud/ubuntu:16.04',
 		'pull': 'always',
 		'detach': True,
 		'commands': [
@@ -706,7 +706,7 @@ def uploadScreenshots():
 def buildGithubComment(suite):
 	return [{
 		'name': 'build-github-comment',
-		'image': 'owncloud/ubuntu:18.04',
+		'image': 'owncloud/ubuntu:16.04',
 		'pull': 'always',
 		'detach': True,
 		'commands': [
